@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model
 
 class DetectionKitMarkersInline(admin.TabularInline):
     model = DetectionKitMarkers
-    extra = 5
+    extra = 1
 
 
 class DetectionKitAdmin(admin.ModelAdmin):

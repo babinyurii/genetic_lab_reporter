@@ -43,25 +43,27 @@ class DetectionKitMarkers(models.Model):
                                 blank=True,
                                 null=True,
                                 default=ALLELE_CLIN_SIGNIF_CHOICE[2][1],
-                                verbose_name='интерпретация аллели: MUT или NORM'
+                                verbose_name='интерпретация аллели 1',
+                                help_text="aллель 1 находится ДО знака '/' в описании маркера слева, например: G/A: аллель 1 - G"
                                 )
     nuc_var_2_clin_signif = models.CharField(
                                 choices=ALLELE_CLIN_SIGNIF_CHOICE,
                                 max_length=24, blank=True, null=True,
                                 default=ALLELE_CLIN_SIGNIF_CHOICE[2][1],
-                                verbose_name='интерпретация аллели: MUT или NORM'
+                                verbose_name='интерпретация аллели 2', 
+                                help_text="aллель 2 находится ПОСЛЕ знака '/' в описании маркера слева, например: G/A: аллель 2 - А"
                                 )
     marker_category_in_kit = models.CharField(choices=MARKER_CATEGORIES_IN_KIT, max_length=255, blank=True, null=True)
 
 
 
     class Meta:
-        verbose_name = 'Маркеры в генетическом тесте'
-        verbose_name_plural = 'Маркеры в генетических тестах'
+        verbose_name = 'Добавить маркер'
+        verbose_name_plural = 'Установить набор маркеров в генетическом тесте'
         constraints = [models.UniqueConstraint(
                         fields=['detection_kit', 'marker', ],
                         name='detection_kit_marker_constraint')]
 
     def __str__(self):
-        return f'detection kit: {self.detection_kit}, marker: {self.marker}'
+        return f'Генетический тест: {self.detection_kit}, маркер: {self.marker}'
 
