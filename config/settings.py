@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
     'markers.apps.MarkersConfig',
+    'detection_kits.apps.DetectionKitsConfig',
 ]
 
 MIDDLEWARE = [
