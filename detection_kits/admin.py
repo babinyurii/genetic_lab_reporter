@@ -59,6 +59,17 @@ class ConclusionsForSNPAdmin(admin.ModelAdmin):
 
    
 class DetectionKitMarkersAdmin(admin.ModelAdmin):
+    fields = (
+        'detection_kit',
+        'marker',
+        'genotype_1',
+        'conclusion_genotype_1_1',
+        'genotype_2',
+        'conclusion_genotype_1_2',
+        'genotype_3',
+        'conclusion_genotype_2_2',
+
+    )
     list_display = (
         'detection_kit',
         'marker',

@@ -54,11 +54,13 @@ class DetectionKitMarkers(models.Model):
                                 help_text="aллель 2 находится ПОСЛЕ знака '/' в описании маркера слева, например: G/A: аллель 2 - А"
                                 )
     marker_category_in_kit = models.CharField(choices=MARKER_CATEGORIES_IN_KIT, max_length=255, blank=True, null=True)
-
+    conclusion_genotype_1_1 = models.TextField(null=True, blank=True, max_length=2500, verbose_name='заключение для генотипа 1')
+    conclusion_genotype_1_2 = models.TextField(null=True, blank=True, max_length=2500, verbose_name='заключение для генотипа 2')
+    conclusion_genotype_2_2 = models.TextField(null=True, blank=True, max_length=2500, verbose_name='заключение для генотипа 3')
 
 
     class Meta:
-        verbose_name = 'Добавить маркер'
+        verbose_name = 'маркеры'
         verbose_name_plural = 'Маркеры, интерпретация, заключения'
         constraints = [models.UniqueConstraint(
                         fields=['detection_kit', 'marker', ],
