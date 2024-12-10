@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model
 
 class DetectionKitMarkersInline(admin.TabularInline):
     model = DetectionKitMarkers
-    #fields = ('nuc_var_1_clin_signif',)
+    fields = ('marker', )
     extra = 1
 
 
@@ -57,9 +57,26 @@ class ConclusionsForSNPAdmin(admin.ModelAdmin):
         return False
 """
 
-    
+   
+class DetectionKitMarkersAdmin(admin.ModelAdmin):
+    list_display = (
+        'detection_kit',
+        'marker',
+    )
+    search_fields = ('detection_kit',)
+    search_help_text = 'введите название генетического теста: найти все маркеры по вхождению в определенный тест'
+    list_filter = ('detection_kit',)
+
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 
+
+admin.site.register(DetectionKitMarkers, DetectionKitMarkersAdmin)
 admin.site.register(DetectionKit, DetectionKitAdmin)
 #admin.site.register(ConclusionsForSNP, ConclusionsForSNPAdmin)
