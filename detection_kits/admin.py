@@ -7,6 +7,7 @@ from django.contrib.auth import get_user_model
 
 class DetectionKitMarkersInline(admin.TabularInline):
     model = DetectionKitMarkers
+    #fields = ('nuc_var_1_clin_signif',)
     extra = 1
 
 
