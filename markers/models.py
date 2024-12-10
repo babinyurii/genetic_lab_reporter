@@ -49,6 +49,13 @@ class SingleNucPol(models.Model):
     created_by = models.ForeignKey(CustomUser, null=True,
                                 blank=True, on_delete=models.PROTECT)
 
+    genotype_nuc_var_1_1 = models.CharField(max_length=5, blank=True, null=True,
+                                 verbose_name='генотип: аллель 1 + аллель 1')
+    genotype_nuc_var_1_2 = models.CharField(max_length=5, blank=True, null=True,
+                                 verbose_name='генотип: аллель 1 + аллель 2')
+    genotype_nuc_var_2_2 = models.CharField(max_length=5, blank=True, null=True,
+                                 verbose_name='генотип: аллель 1 + аллель 2')
+
     def clean(self):
         if self.nuc_var_1 == self.nuc_var_2:
             raise ValidationError(
@@ -71,3 +78,12 @@ class SingleNucPol(models.Model):
     class Meta:
         verbose_name = 'SNP'
         verbose_name_plural = 'SNPs'
+
+
+    
+    def save(self, *args, **kwargs):
+        """add automatically 3 genotypes, each time the instance is changed"""
+        self.genotype_nuc_var_1_1 = self.nuc_var_1 + self.nuc_var_1
+        self.genotype_nuc_var_1_2 = self.nuc_var_1 + self.nuc_var_2
+        self.genotype_nuc_var_2_2 = self.nuc_var_2 + self.nuc_var_2
+        super().save(*args, **kwargs)

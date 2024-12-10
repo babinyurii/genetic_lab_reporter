@@ -8,8 +8,11 @@ class SingleNucPolAdmin(admin.ModelAdmin):
                     'gene_name_short',
                     'nuc_var_1',
                     'nuc_var_2',
+                    'genotype_nuc_var_1_1',
+                    'genotype_nuc_var_1_2',
+                    'genotype_nuc_var_2_2',
                     'gene_name_full',
-                    'created_by')
+                    'created_by',)
     list_display_links = ()
     search_fields = ('rs', 'gene_name_short', 'gene_name_full', )
 
