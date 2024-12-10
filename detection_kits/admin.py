@@ -62,7 +62,12 @@ class DetectionKitMarkersAdmin(admin.ModelAdmin):
     list_display = (
         'detection_kit',
         'marker',
+        'genotype_1',
+        'genotype_2',
+        'genotype_3',
+
     )
+    readonly_fields = ( 'genotype_1', 'genotype_2', 'genotype_3',)
     search_fields = ('detection_kit',)
     search_help_text = 'введите название генетического теста: найти все маркеры по вхождению в определенный тест'
     list_filter = ('detection_kit',)
@@ -73,6 +78,16 @@ class DetectionKitMarkersAdmin(admin.ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+    def genotype_1(self, obj):
+        return obj.marker.genotype_nuc_var_1_1
+
+    def genotype_2(self, obj):
+        return obj.marker.genotype_nuc_var_1_2
+
+    def genotype_3(self, obj):
+        return obj.marker.genotype_nuc_var_2_2
+
 
 
 
