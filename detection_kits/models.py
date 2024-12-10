@@ -59,7 +59,7 @@ class DetectionKitMarkers(models.Model):
 
     class Meta:
         verbose_name = 'Добавить маркер'
-        verbose_name_plural = 'Установить набор маркеров в генетическом тесте'
+        verbose_name_plural = 'Маркеры, интерпретация, заключения'
         constraints = [models.UniqueConstraint(
                         fields=['detection_kit', 'marker', ],
                         name='detection_kit_marker_constraint')]
