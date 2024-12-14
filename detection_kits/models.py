@@ -16,7 +16,6 @@ class DetectionKit(models.Model):
                                     SingleNucPol,
                                     through='DetectionKitMarkers',
                                     related_name='detection_kits_list')
-    price = models.PositiveIntegerField(null=True, blank=True, verbose_name='цена за тест для клиники')
     #report_template = models.FileField(upload_to='report_templates/', max_length=100, default=None, blank=True, null=True)
 
     class Meta:
@@ -61,7 +60,7 @@ class DetectionKitMarkers(models.Model):
 
     class Meta:
         verbose_name = 'SNP'
-        verbose_name_plural = '2. SNP в тестах. заключения по генотипам'
+        verbose_name_plural = '2. SNP в тестах и заключения по отдельным генотипам'
         constraints = [models.UniqueConstraint(
                         fields=['detection_kit', 'marker', ],
                         name='detection_kit_marker_constraint')]
@@ -95,20 +94,12 @@ class TwoSNPCombination(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        #snp_1 = self.snp_1
-        #snp_2 = self.snp_2
         genotypes_snp_1 = [self.snp_1.genotype_nuc_var_1_1,
                             self.snp_1.genotype_nuc_var_1_2,
                             self.snp_1.genotype_nuc_var_2_2,]
-        #genotypes_snp_1 = [snp_1.nuc_var_1 + snp_1.nuc_var_1,
-        #                   snp_1.nuc_var_1 + snp_1.nuc_var_2,
-        #                   snp_1.nuc_var_2 + snp_1.nuc_var_2]
         genotypes_snp_2 = [self.snp_2.genotype_nuc_var_1_1,
                             self.snp_2.genotype_nuc_var_1_2,
                             self.snp_2.genotype_nuc_var_2_2,]
-        #genotypes_snp_2 = [snp_2.nuc_var_1 + snp_2.nuc_var_1,
-        #                   snp_2.nuc_var_1 + snp_2.nuc_var_2,
-        #                   snp_2.nuc_var_2 + snp_2.nuc_var_2]
 
         genotypes_combs_in_list = []
         for genotype_snp_1 in genotypes_snp_1:

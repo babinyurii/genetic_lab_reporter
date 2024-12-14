@@ -15,6 +15,8 @@ class SingleNucPolAdmin(admin.ModelAdmin):
                     'created_by',)
     list_display_links = ()
     search_fields = ('rs', 'gene_name_short', 'gene_name_full', )
+    readonly_fields = ( 'genotype_nuc_var_1_1', 'genotype_nuc_var_1_2', 'genotype_nuc_var_2_2',)
+
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "created_by":
