@@ -154,6 +154,10 @@ class TwoSNPCombinationReportInline(admin.StackedInline):
     readonly_fields = ( 'genotype_snp_1', 'genotype_snp_2',)
 
 
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
 class TwoSNPCombinationAdmin(admin.ModelAdmin):
     form = TwoSNPCombinationForm
     list_display = ('name',
