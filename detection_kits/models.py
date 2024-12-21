@@ -35,7 +35,7 @@ class DetectionKitMarkers(models.Model):
     detection_kit = models.ForeignKey(DetectionKit,
                                       null=True, on_delete=models.CASCADE)
     marker = models.ForeignKey(SingleNucPol,
-                               null=True, on_delete=models.SET_NULL)
+                               null=True, on_delete=models.CASCADE)
     nuc_var_1_clin_signif = models.CharField(
                                 choices=ALLELE_CLIN_SIGNIF_CHOICE,
                                 max_length=24,
