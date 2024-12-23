@@ -16,7 +16,7 @@ class DetectionKit(models.Model):
                                     SingleNucPol,
                                     through='DetectionKitMarkers',
                                     related_name='detection_kits_list')
-    #report_template = models.FileField(upload_to='report_templates/', max_length=100, default=None, blank=True, null=True)
+    short_report_template = models.FileField(upload_to='media/report_templates/', max_length=255, default=None, blank=True, null=True)
 
     class Meta:
         verbose_name = 'Генетический тест'
