@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'markers.apps.MarkersConfig',
     'detection_kits.apps.DetectionKitsConfig',
+    'samples.apps.SamplesConfig',
 ]
 
 MIDDLEWARE = [
