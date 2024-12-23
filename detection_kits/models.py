@@ -26,6 +26,19 @@ class DetectionKit(models.Model):
         return f'{self.name}'
 
 
+    def save(self, *args, **kwargs):
+        try:
+            detection_kit = DetectionKit.objects.get(pk=self.pk)
+            if detection_kit.short_report_template and self.short_report_template and detection_kit.short_report_template != self.short_report_template:
+                detection_kit.short_report_template.delete(save=False)
+        except DetectionKit.DoesNotExist:
+            pass
+
+        super(DetectionKit, self).save(*args, **kwargs)
+
+
+
+
 
 
 class DetectionKitMarkers(models.Model):
