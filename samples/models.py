@@ -10,7 +10,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from samples.constants import allowed_chars
 from django.utils.timezone import now
 from django.core.exceptions import ObjectDoesNotExist
-#from patients.utils import generate_text_for_conclusion
+from samples.utils import copy_report_template
 
 
 
@@ -153,7 +153,11 @@ class ResultSNP(models.Model):
             #####################################################################################3
             # NOTE: here will go report generation call, after checking if all results are ready
 
-            #if all(results):  # look for conclusion creation only when snp results are updated,
+            if all(results):  # look for conclusion creation only when snp results are updated,
+                copy_report_template(self.genetic_test.short_report_template.name,
+                                    self.genetic_test.name,
+                                    self.sample.last_name,
+                                    self.sample.lab_id)
                 #two_snp_conc = self.create_two_snp_report(results_snp=results_snp)
                 #one_snp_conc = self.create_one_snp_report(results_snp=results_snp)
 
