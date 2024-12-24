@@ -16,7 +16,8 @@ class DetectionKit(models.Model):
                                     SingleNucPol,
                                     through='DetectionKitMarkers',
                                     related_name='detection_kits_list')
-    #report_template = models.FileField(upload_to='report_templates/', max_length=100, default=None, blank=True, null=True)
+    short_report_template = models.FileField(upload_to='media/report_templates/', max_length=255, default=None, blank=True, null=True)
+    full_report_template = models.FileField(upload_to='media/report_templates/', max_length=255, default=None, blank=True, null=True)
 
     class Meta:
         verbose_name = 'Генетический тест'
@@ -24,6 +25,21 @@ class DetectionKit(models.Model):
 
     def __str__(self):
         return f'{self.name}'
+
+
+    def save(self, *args, **kwargs):
+        try:
+            detection_kit = DetectionKit.objects.get(pk=self.pk)
+            if detection_kit.short_report_template and self.short_report_template and detection_kit.short_report_template != self.short_report_template:
+                detection_kit.short_report_template.delete(save=False)
+            if detection_kit.full_report_template and self.full_report_template and detection_kit.full_report_template != self.full_report_template:
+                detection_kit.full_report_template.delete(save=False)
+        except DetectionKit.DoesNotExist:
+            pass
+
+        super(DetectionKit, self).save(*args, **kwargs)
+
+
 
 
 

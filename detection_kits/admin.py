@@ -21,6 +21,7 @@ class DetectionKitAdmin(admin.ModelAdmin):
         'name',
         'date_created',
         'created_by',
+        'short_report_template',
     )
 
     inlines = (DetectionKitMarkersInline, )

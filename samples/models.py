@@ -10,7 +10,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from samples.constants import allowed_chars
 from django.utils.timezone import now
 from django.core.exceptions import ObjectDoesNotExist
-#from patients.utils import generate_text_for_conclusion
+from samples.utils import copy_report_template
 
 
 
@@ -47,6 +47,8 @@ class Sample(models.Model):
                                    through='SampleDetectionKit')
     date_created = models.DateTimeField(auto_now_add=True, editable=False, )
     date_modified = models.DateTimeField(auto_now=True)
+    short_report = models.FileField(blank=True, null=True)
+    full_report = models.FileField(blank=True, null=True)
 
     def __str__(self):
         return f'{self.last_name} {self.first_name}'
@@ -127,6 +129,7 @@ class ResultSNP(models.Model):
                             USE NUCLEOTIDE ORDER DESIGNATED ABOVE")
     date_created = models.DateTimeField(auto_now_add=True, editable=False)
     date_modified = models.DateTimeField(auto_now=True)
+    
 
     class Meta:
         verbose_name = 'результат'
@@ -153,7 +156,21 @@ class ResultSNP(models.Model):
             #####################################################################################3
             # NOTE: here will go report generation call, after checking if all results are ready
 
-            #if all(results):  # look for conclusion creation only when snp results are updated,
+            if all(results):  # look for conclusion creation only when snp results are updated,
+                short_report = copy_report_template(self.genetic_test.short_report_template.name,
+                                    self.genetic_test.name,
+                                    self.sample.last_name,
+                                    self.sample.lab_id,
+                                    short_report=True)
+
+                full_report = copy_report_template(self.genetic_test.full_report_template.name,
+                                    self.genetic_test.name,
+                                    self.sample.last_name,
+                                    self.sample.lab_id,
+                                    short_report=False)
+                self.sample.short_report.name = short_report
+                self.sample.full_report.name = full_report
+                self.sample.save()
                 #two_snp_conc = self.create_two_snp_report(results_snp=results_snp)
                 #one_snp_conc = self.create_one_snp_report(results_snp=results_snp)
 
@@ -171,3 +188,5 @@ class ResultSNP(models.Model):
                 'genotype is not correct. check: only uppercase letter,\
                      look at the order of nucleotides above')
     """
+
+    
