@@ -127,6 +127,7 @@ class ResultSNP(models.Model):
                             USE NUCLEOTIDE ORDER DESIGNATED ABOVE")
     date_created = models.DateTimeField(auto_now_add=True, editable=False)
     date_modified = models.DateTimeField(auto_now=True)
+    
 
     class Meta:
         verbose_name = 'результат'
@@ -154,10 +155,17 @@ class ResultSNP(models.Model):
             # NOTE: here will go report generation call, after checking if all results are ready
 
             if all(results):  # look for conclusion creation only when snp results are updated,
-                copy_report_template(self.genetic_test.short_report_template.name,
+                short_report = copy_report_template(self.genetic_test.short_report_template.name,
                                     self.genetic_test.name,
                                     self.sample.last_name,
-                                    self.sample.lab_id)
+                                    self.sample.lab_id,
+                                    short_report=True)
+
+                full_report = copy_report_template(self.genetic_test.full_report_template.name,
+                                    self.genetic_test.name,
+                                    self.sample.last_name,
+                                    self.sample.lab_id,
+                                    short_report=False)
                 #two_snp_conc = self.create_two_snp_report(results_snp=results_snp)
                 #one_snp_conc = self.create_one_snp_report(results_snp=results_snp)
 
