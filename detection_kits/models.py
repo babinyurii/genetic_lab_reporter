@@ -17,6 +17,7 @@ class DetectionKit(models.Model):
                                     through='DetectionKitMarkers',
                                     related_name='detection_kits_list')
     short_report_template = models.FileField(upload_to='media/report_templates/', max_length=255, default=None, blank=True, null=True)
+    full_report_template = models.FileField(upload_to='media/report_templates/', max_length=255, default=None, blank=True, null=True)
 
     class Meta:
         verbose_name = 'Генетический тест'
@@ -31,6 +32,8 @@ class DetectionKit(models.Model):
             detection_kit = DetectionKit.objects.get(pk=self.pk)
             if detection_kit.short_report_template and self.short_report_template and detection_kit.short_report_template != self.short_report_template:
                 detection_kit.short_report_template.delete(save=False)
+            if detection_kit.full_report_template and self.full_report_template and detection_kit.full_report_template != self.full_report_template:
+                detection_kit.full_report_template.delete(save=False)
         except DetectionKit.DoesNotExist:
             pass
 
