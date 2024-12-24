@@ -34,6 +34,7 @@ class SampleAdmin(admin.ModelAdmin):
                     'dna_quality_260_230',
                     'notes',
                     'created_by')
+    readonly_fields = ('short_report', 'full_report',)
     list_display_links = ('lab_id', )
     inlines = (SampleDetectionKitInline, ResultSNPInline  )
     search_fields = ('lab_id', 'last_name',)

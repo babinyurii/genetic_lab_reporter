@@ -47,6 +47,8 @@ class Sample(models.Model):
                                    through='SampleDetectionKit')
     date_created = models.DateTimeField(auto_now_add=True, editable=False, )
     date_modified = models.DateTimeField(auto_now=True)
+    short_report = models.FileField(blank=True, null=True)
+    full_report = models.FileField(blank=True, null=True)
 
     def __str__(self):
         return f'{self.last_name} {self.first_name}'
@@ -166,6 +168,9 @@ class ResultSNP(models.Model):
                                     self.sample.last_name,
                                     self.sample.lab_id,
                                     short_report=False)
+                self.sample.short_report.name = short_report
+                self.sample.full_report.name = full_report
+                self.sample.save()
                 #two_snp_conc = self.create_two_snp_report(results_snp=results_snp)
                 #one_snp_conc = self.create_one_snp_report(results_snp=results_snp)
 
