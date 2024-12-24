@@ -188,3 +188,5 @@ class ResultSNP(models.Model):
                 'genotype is not correct. check: only uppercase letter,\
                      look at the order of nucleotides above')
     """
+
+    
